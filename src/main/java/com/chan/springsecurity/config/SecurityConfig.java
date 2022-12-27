@@ -22,7 +22,9 @@ public class SecurityConfig {
             .anyRequest().permitAll()
             .and()
             .formLogin()
-            .loginPage("/login");
+            .loginPage("/login-form")
+            .loginProcessingUrl("/login")
+            .defaultSuccessUrl("/");
 
         return http.build();
     }

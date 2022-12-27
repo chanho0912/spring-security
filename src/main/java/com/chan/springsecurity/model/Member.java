@@ -1,5 +1,6 @@
 package com.chan.springsecurity.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -21,7 +22,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class Member {
+public class Member implements Serializable {
     protected Member() {
     }
 

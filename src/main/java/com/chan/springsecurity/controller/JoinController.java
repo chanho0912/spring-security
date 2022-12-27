@@ -30,7 +30,7 @@ public class JoinController {
                                     .build();
 
         memberRepository.save(member);
-        return "redirect:/login";
+        return "redirect:/login-form";
     }
 
 }
