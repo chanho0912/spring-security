@@ -1,5 +1,6 @@
 package com.chan.springsecurity.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class IndexController {
 
     @GetMapping({ "", "/" })
-    @ResponseBody
     public String index() {
         return "index";
     }
@@ -31,20 +31,28 @@ public class IndexController {
         return "manager";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
     @GetMapping("/join")
-    @ResponseBody
     public String join() {
-        return "join";
+        return "joinForm";
     }
 
     @GetMapping("/join-proc")
     @ResponseBody
     public String joinProc() {
         return "회원 가입 완료!";
+    }
+
+    @GetMapping("only-for-admin")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @ResponseBody
+    public String onlyForAdmin() {
+        return "hello admin~!";
+    }
+
+    @GetMapping("only-for-manager-and-admin")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
+    @ResponseBody
+    public String onlyForManagerAndAdmin() {
+        return "hello manager or admin~!";
     }
 }
