@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.service.annotation.PostExchange;
 import com.chan.springsecurity.dto.KakaoTokenResponse;
 
-public interface KakaoClient {
+public interface KakaoAuthClient {
 
     @PostExchange(
             value = "oauth/token",

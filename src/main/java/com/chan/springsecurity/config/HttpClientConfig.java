@@ -10,11 +10,19 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 public class HttpClientConfig {
 
     @Bean
-    public KakaoClient kakaoClient() {
+    public KakaoAuthClient kakaoAuthClient() {
         final WebClient webClient = WebClient.builder().baseUrl("https://kauth.kakao.com").build();
         return HttpServiceProxyFactory.builder(WebClientAdapter.forClient(webClient))
                                       .build()
-                                      .createClient(KakaoClient.class);
+                                      .createClient(KakaoAuthClient.class);
+    }
+
+    @Bean
+    public KakaoApiClient kakaoApiClient() {
+        final WebClient webClient = WebClient.builder().baseUrl("https://kapi.kakao.com").build();
+        return HttpServiceProxyFactory.builder(WebClientAdapter.forClient(webClient))
+                                      .build()
+                                      .createClient(KakaoApiClient.class);
     }
 
 }
