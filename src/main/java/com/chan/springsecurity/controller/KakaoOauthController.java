@@ -6,8 +6,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.chan.springsecurity.config.KakaoApiClient;
-import com.chan.springsecurity.config.KakaoAuthClient;
+import com.chan.springsecurity.external.KakaoApiClient;
+import com.chan.springsecurity.external.KakaoAuthClient;
 import com.chan.springsecurity.dto.KakaoMemberInfo;
 import com.chan.springsecurity.dto.KakaoTokenResponse;
 

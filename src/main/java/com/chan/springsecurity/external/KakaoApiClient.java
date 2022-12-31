@@ -1,4 +1,4 @@
-package com.chan.springsecurity.config;
+package com.chan.springsecurity.external;
 
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.service.annotation.GetExchange;

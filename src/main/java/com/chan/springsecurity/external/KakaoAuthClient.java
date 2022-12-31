@@ -1,4 +1,4 @@
-package com.chan.springsecurity.config;
+package com.chan.springsecurity.external;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

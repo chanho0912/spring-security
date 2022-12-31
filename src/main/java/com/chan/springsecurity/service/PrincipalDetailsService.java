@@ -1,12 +1,12 @@
-package com.chan.springsecurity.config.auth;
+package com.chan.springsecurity.service;
 
 import java.util.Objects;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.chan.springsecurity.model.Member;
+import com.chan.springsecurity.model.PrincipalDetails;
 import com.chan.springsecurity.repository.MemberRepository;
 
 /**

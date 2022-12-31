@@ -1,4 +1,4 @@
-package com.chan.springsecurity.config.auth;
+package com.chan.springsecurity.model;
 
 import java.util.ArrayList;
 import java.util.Collection;

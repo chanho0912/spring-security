@@ -7,11 +7,18 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import com.chan.springsecurity.service.PrincipalOAuth2MemberService;
 
 @Configuration
 @EnableWebSecurity // spring security filter가 spring filter chain에 등록됨
 @EnableMethodSecurity
 public class SecurityConfig {
+
+    private final PrincipalOAuth2MemberService principalOAuth2MemberService;
+
+    public SecurityConfig(PrincipalOAuth2MemberService principalOAuth2MemberService) {
+        this.principalOAuth2MemberService = principalOAuth2MemberService;
+    }
 
     static class UrlPatterns {
         private UrlPatterns() {}
@@ -41,10 +48,12 @@ public class SecurityConfig {
             .formLogin()
             .loginPage("/login-form")
             .loginProcessingUrl("/login")
-            .defaultSuccessUrl("/");
-//            .and()
-//            .oauth2Login()
-//            .loginPage("/login-form");
+            .defaultSuccessUrl("/")
+            .and()
+            .oauth2Login()
+            .loginPage("/login-form")
+            .userInfoEndpoint()
+            .userService(principalOAuth2MemberService);
 
         return http.build();
     }

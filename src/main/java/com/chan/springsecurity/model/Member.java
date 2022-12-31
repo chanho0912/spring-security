@@ -38,6 +38,10 @@ public class Member implements Serializable {
 
     private String role;
 
+    private String authProvider;
+
+    private String authProviderId;
+
     @CreatedDate
     @Column(name = "created_at")
     private Timestamp createdAt;

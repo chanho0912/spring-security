@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
+import com.chan.springsecurity.external.KakaoApiClient;
+import com.chan.springsecurity.external.KakaoAuthClient;
 
 @Configuration
 public class HttpClientConfig {
