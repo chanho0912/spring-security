@@ -2,9 +2,10 @@ package com.chan.springsecurity.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import com.chan.springsecurity.model.Member;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 /**
  * Spring Security가 /login으로 요청이 오면 낚아채서 로그인을 진행
@@ -17,13 +18,24 @@ import com.chan.springsecurity.model.Member;
  *
  * Security Session => Authentication => UserDetails
  */
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails, OAuth2User {
 
     // https://www.youtube.com/watch?v=3iypR-1Glm0
     private final transient Member member;
+    private Map<String, Object> attributes = Map.of();
 
     public PrincipalDetails(Member member) {
         this.member = member;
+    }
+
+    public PrincipalDetails(Member member, Map<String, Object> attributes) {
+        this.member = member;
+        this.attributes = attributes;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
     }
 
     // 해당 유저의 권한을 리턴하는 곳
@@ -42,6 +54,11 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public String getUsername() {
+        return member.getUsername();
+    }
+
+    @Override
+    public String getName() {
         return member.getUsername();
     }
 
@@ -67,4 +84,5 @@ public class PrincipalDetails implements UserDetails {
          */
         return true;
     }
+
 }

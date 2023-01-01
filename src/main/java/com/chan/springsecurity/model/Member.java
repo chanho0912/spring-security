@@ -38,8 +38,10 @@ public class Member implements Serializable {
 
     private String role;
 
+    @Column(name = "auth_provider")
     private String authProvider;
 
+    @Column(name = "auth_provider_id")
     private String authProviderId;
 
     @CreatedDate

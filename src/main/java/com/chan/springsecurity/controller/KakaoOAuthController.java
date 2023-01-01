@@ -6,35 +6,35 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.chan.springsecurity.external.KakaoApiClient;
-import com.chan.springsecurity.external.KakaoAuthClient;
+import com.chan.springsecurity.external.KakaoPublicApiClient;
+import com.chan.springsecurity.external.KakaoOAuthClient;
 import com.chan.springsecurity.dto.KakaoMemberInfo;
 import com.chan.springsecurity.dto.KakaoTokenResponse;
 
 @RestController
-public class KakaoOauthController {
+public class KakaoOAuthController {
 
-    private final KakaoAuthClient kakaoAuthClient;
-    private final KakaoApiClient kakaoApiClient;
+    private final KakaoOAuthClient kakaoOAuthClient;
+    private final KakaoPublicApiClient kakaoPublicApiClient;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public KakaoOauthController(KakaoApiClient kakaoApiClient,
-                                KakaoAuthClient kakaoAuthClient,
+    public KakaoOAuthController(KakaoPublicApiClient kakaoPublicApiClient,
+                                KakaoOAuthClient kakaoOAuthClient,
                                 BCryptPasswordEncoder bCryptPasswordEncoder) {
 
-        this.kakaoApiClient = kakaoApiClient;
-        this.kakaoAuthClient = kakaoAuthClient;
+        this.kakaoPublicApiClient = kakaoPublicApiClient;
+        this.kakaoOAuthClient = kakaoOAuthClient;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @GetMapping("auth/kakao/callback")
     public String kakaoCallback(@RequestParam String code) {
-        final ResponseEntity<KakaoTokenResponse> respEntity = kakaoAuthClient.getAccessToken(
-                kakaoAuthClient.getTokenRequestSpec(code)
+        final ResponseEntity<KakaoTokenResponse> respEntity = kakaoOAuthClient.getAccessToken(
+                kakaoOAuthClient.getTokenRequestSpec(code)
         );
 
         try {
-            KakaoMemberInfo kakaoMemberInfo = kakaoApiClient.getKakaoMemberInfo(
+            KakaoMemberInfo kakaoMemberInfo = kakaoPublicApiClient.getKakaoMemberInfo(
                     "Bearer " + respEntity.getBody().accessToken());
 
             System.out.println(kakaoMemberInfo);
