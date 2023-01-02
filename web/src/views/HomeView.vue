@@ -28,17 +28,22 @@
                         </v-row>
                         <v-btn color="blue" dark block tile>Login in</v-btn>
                         <h5 class="text-center green--text mt-4 mb-3">Or Log in using</h5>
-                        <div class="d-flex justify-space-between align-center mx-10 mb-16">
-                          <v-btn depressed outlined color="grey">
-                            <v-icon color="red">fab fa-google</v-icon>
-                          </v-btn>
-                          <v-btn depressed outlined color="grey">
-                            <v-icon color="blue">fab fa-facebook-f</v-icon>
-                          </v-btn>
-                          <v-btn depressed outlined color="grey">
-                            <v-icon color="light-blue lighten-3">fab fa-twitter</v-icon>
-                          </v-btn>
-                        </div>
+                        <v-btn color="green" block depressed class="mb-3" @click="continueWithNaver">
+                          <v-icon color="white">fa-solid fa-n</v-icon>
+                          <span style="margin-left: 10px">Continue with naver</span>
+                        </v-btn>
+                        <v-btn color="yellow" block depressed class="mb-3">
+                          <v-icon color="white">fa-solid fa-k</v-icon>
+                          <span style="margin-left: 10px">Continue with kakao</span>
+                        </v-btn>
+                        <v-btn color="grey" block depressed class="mb-3" @click="continueWithGoogle">
+                          <v-icon color="white">fa-solid fa-g</v-icon>
+                          <span style="margin-left: 10px">Continue with google</span>
+                        </v-btn>
+                        <v-btn color="blue" block depressed class="mb-10">
+                          <v-icon color="white">fa-solid fa-f</v-icon>
+                          <span style="margin-left: 10px">Continue with facebook</span>
+                        </v-btn>
                       </v-col>
                     </v-row>
                   </v-card-text>
@@ -66,7 +71,7 @@
                     <v-card-text class="white--text">
                       <h3 class="text-center">Already Signed up?</h3>
                       <h6 class="text-center">SingLog in to your account so you can continue building and<br>
-                      editing your onboarding flows
+                        editing your onboarding flows
                       </h6>
                     </v-card-text>
                     <div class="text-center">
@@ -132,12 +137,30 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-  data: () => ({
-    step: 1
-  }),
+  data: function () {
+    return {
+      step: 1,
+    }
+  },
   props: {
     source: String
+  },
+  methods: {
+    continueWithGoogle: () => {
+      axios.get("http://localhost:8080/oauth2/authorization/google")
+           .then(response => console.log(response));
+    },
+    continueWithNaver: () => {
+      window.location.href = "https://nid.naver.com/oauth2.0/authorize" +
+                             "?response_type=code" +
+                             "&client_id=jo6jVfje8daqvslF5fVn" +
+                             "&scope=name%20email" +
+                             "&state=cUDtCgob0HjzTnjgTP68nz_qpYVIguMx2G4xPZHf2NY%3D" +
+                             "&redirect_uri=http://localhost:8080/login/oauth2/code/naver"
+    }
   }
 
 }

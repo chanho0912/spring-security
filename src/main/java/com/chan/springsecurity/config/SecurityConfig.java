@@ -2,6 +2,7 @@ package com.chan.springsecurity.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -39,6 +40,7 @@ public class SecurityConfig {
         http.csrf()
             .disable()
             .authorizeHttpRequests()
+            .requestMatchers(HttpMethod.OPTIONS).permitAll()
             .requestMatchers(UrlPatterns.USER).authenticated()
             .requestMatchers(UrlPatterns.MANAGER).hasAnyRole(Roles.ROLE_MANAGER, Roles.ROLE_ADMIN)
             .requestMatchers(UrlPatterns.ADMIN).hasRole(Roles.ROLE_ADMIN)
